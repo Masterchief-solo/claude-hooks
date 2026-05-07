@@ -26,7 +26,7 @@ For managed deployment in team or enterprise environments.
 2. Push `/etc/claude-code/managed-settings.json` containing the hooks block (and optionally `allowManagedHooksOnly: true` to enforce it)
 3.  Users restart Claude Code — the hook is active and cannot be disabled at the project or user level
 
-This works on Linux, WSL2, macOS, and Windows. Settings can be pushed via the Anthropic admin console with `forceRemoteSettingsRefresh: true`. See [INSTALLATION.md](INSTALLATION.md#managed-installation) for full details.
+This works on Linux, WSL2, macOS, and Windows. Settings can be pushed via the Anthropic admin console with `forceRemoteSettingsRefresh: true`. 
 
 
 ### Option 2: Interactive Installation
@@ -50,7 +50,19 @@ cd claude-hooks
 
 ### What gets installed
 
-The installer copies hook files to your project and configures Claude Code:
+The installer copies hook files to your project and configures Claude Code.
+
+Managed Install:
+
+```
+/etc/claude-code/
+├── hooks/
+│   └── prompt-injection-defender/
+│       ├── post-tool-defender.py
+│       └── patterns.yaml
+└── managed-settings.json      ← hook configuration (server-pushed)
+```
+Project Install: 
 
 ```
 your-project/
