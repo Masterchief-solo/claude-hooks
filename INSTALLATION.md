@@ -9,7 +9,26 @@ This guide covers installing the **Prompt Injection Defender** hook from the Cla
 
 ## Quick Install (Recommended)
 
-### Option 1: One-Line Install Script
+### Option 1: Managed Installation
+This is the recommended path for deploying the defender across a managed fleet. Managed settings have the highest precedence in Claude Code and cannot be overridden by users, which makes this the right choice when the defender must be enforced as policy.
+
+Clone the repo to `/tmp` as a staging area, then deploy from there to the managed location in Step 2.
+
+```bash
+git clone https://github.com/lasso-security/claude-hooks.git /tmp/claude-hooks
+
+```bash
+sudo mkdir -p /etc/claude-code/hooks/prompt-injection-defender
+sudo cp .claude/skills/prompt-injection-defender/hooks/defender-python/post-tool-defender.py \
+        /etc/claude-code/hooks/prompt-injection-defender/
+sudo cp .claude/skills/prompt-injection-defender/patterns.yaml \
+        /etc/claude-code/hooks/prompt-injection-defender/
+sudo chmod 755 /etc/claude-code/hooks/prompt-injection-defender/post-tool-defender.py
+sudo chmod 644 /etc/claude-code/hooks/prompt-injection-defender/patterns.yaml
+```
+
+
+### Option 2: One-Line Install Script
 
 ```bash
 # Clone and install to your project
@@ -18,7 +37,7 @@ cd /path/to/your-project
 bash /tmp/claude-hooks/install.sh
 ```
 
-### Option 2: Interactive Installation
+### Option 3: Interactive Installation
 
 If you have this repo added as a Claude skill, simply tell Claude:
 
