@@ -18,7 +18,18 @@ Defense against **indirect prompt injection** attacks. Scans tool outputs (files
 
 ## Quick Start
 
-### Option 1: Interactive Installation (Recommended)
+### Option 1: Managed Installation (Recommended)
+
+For managed deployment in team or enterprise environments.
+
+1. Deploy hook files to `/etc/claude-code/hooks/prompt-injection-defender/`
+2. Push `/etc/claude-code/managed-settings.json` containing the hooks block (and optionally `allowManagedHooksOnly: true` to enforce it)
+3.  Users restart Claude Code — the hook is active and cannot be disabled at the project or user level
+
+This works on Linux, WSL2, macOS, and Windows. Settings can be pushed via the Anthropic admin console with `forceRemoteSettingsRefresh: true`. 
+
+
+### Option 2: Interactive Installation
 
 If you have this repo added as a Claude Code skill, simply tell Claude:
 
@@ -28,7 +39,7 @@ If you have this repo added as a Claude Code skill, simply tell Claude:
 
 Claude will handle the entire installation process for you.
 
-### Option 2: Install Script
+### Option 3: Install Script
 
 ```bash
 # Clone this repo, then run the installer pointing to your project
@@ -39,7 +50,19 @@ cd claude-hooks
 
 ### What gets installed
 
-The installer copies hook files to your project and configures Claude Code:
+The installer copies hook files to your project and configures Claude Code.
+
+Managed Install:
+
+```
+/etc/claude-code/
+├── hooks/
+│   └── prompt-injection-defender/
+│       ├── post-tool-defender.py
+│       └── patterns.yaml
+└── managed-settings.json      ← hook configuration (server-pushed)
+```
+Project Install: 
 
 ```
 your-project/
