@@ -78,9 +78,12 @@ prompt-injection-defender/
 
 | Level    | File                          | Scope              |
 | -------- | ----------------------------- | ------------------ |
-| Global   | `~/.claude/settings.json`     | All projects       |
+| Managed  | `/etc/claude-code/managed-settings.json` | All users |
+| Global   | `~/.claude/settings.json`     | All projects for current user |
 | Project  | `.claude/settings.json`       | Shared with team   |
 | Personal | `.claude/settings.local.json` | Personal overrides |
+
+**Precedence (highest → lowest):** managed → local → project → user. Managed settings cannot be overridden by lower tiers, which is why this is the recommended deployment path for enterprise and MDM-managed fleets. When `allowManagedHooksOnly: true` is set in the managed file, hooks defined at any other level are ignored entirely.
 
 ## Usage Examples
 
