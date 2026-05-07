@@ -10,21 +10,25 @@ This guide covers installing the **Prompt Injection Defender** hook from the Cla
 ## Quick Install (Recommended)
 
 ### Option 1: Managed Installation
-This is the recommended path for deploying the defender across a managed fleet. Managed settings have the highest precedence in Claude Code and cannot be overridden by users, which makes this the right choice when the defender must be enforced as policy.
-
-Clone the repo to `/tmp` as a staging area, then deploy from there to the managed location in Step 2.
 
 ```bash
-git clone https://github.com/lasso-security/claude-hooks.git /tmp/claude-hooks
+# Clone the repo to `/tmp` as a staging area, then deploy to the managed location
 
-```bash
+git clone https://github.com/Masterchief-solo/claude-hooks.git /tmp/claude-hooks
+
+# Deploy from `/tmp` to managed location
+
 sudo mkdir -p /etc/claude-code/hooks/prompt-injection-defender
-sudo cp .claude/skills/prompt-injection-defender/hooks/defender-python/post-tool-defender.py \
+sudo cp /tmp/claude-hooks/.claude/skills/prompt-injection-defender/hooks/defender-python/post-tool-defender.py \
         /etc/claude-code/hooks/prompt-injection-defender/
-sudo cp .claude/skills/prompt-injection-defender/patterns.yaml \
+sudo cp /tmp/claude-hooks/.claude/skills/prompt-injection-defender/patterns.yaml \
         /etc/claude-code/hooks/prompt-injection-defender/
 sudo chmod 755 /etc/claude-code/hooks/prompt-injection-defender/post-tool-defender.py
 sudo chmod 644 /etc/claude-code/hooks/prompt-injection-defender/patterns.yaml
+sudo chown -R root:root /etc/claude-code/hooks/prompt-injection-defender
+
+# Clean up staging area
+rm -rf /tmp/claude-hooks
 ```
 
 
