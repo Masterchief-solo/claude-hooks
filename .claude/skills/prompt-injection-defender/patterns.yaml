@@ -162,7 +162,7 @@ rolePlayingPatterns:
     reason: "Persona pretending attempt"
     severity: medium
 
-  - pattern: '(?i)\bact\s+as\s+(if\s+you\s+(are|were)|an?)\b'
+  - pattern: '(?i)\bact\s+as\s+(if\s+you(?:\s+(?:are|were|have))?|an?)\b'
     reason: "Role acting instruction"
     severity: medium
 
@@ -420,7 +420,7 @@ contextManipulationPatterns:
     reason: "Fake admin user profile"
     severity: high
 
-  - pattern: '(?i)\bin\s+our\s+(last|previous)\s+conversation\s+you\s+(agreed|said|confirmed)'
+  - pattern: '(?i)\bin\s+our\s+(last|previous)\s+conversation(?:[.!?]|[\s,:-])*you\s+(agreed|said|confirmed)'
     reason: "Fake previous agreement claim"
     severity: high
 
