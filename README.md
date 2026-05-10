@@ -1,5 +1,5 @@
 # Claude Hooks
-![Claude Hooks](docs/assets/lasso_hooks.png)
+![Claude Hooks](docs/assets/lasso_chief.png)
 
 
 A collection of security and utility hooks for [Claude Code](https://docs.anthropic.com/en/docs/claude-code). Hooks allow you to extend Claude Code's behavior by running custom scripts at key points during execution.
