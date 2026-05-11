@@ -20,14 +20,58 @@ Defense against **indirect prompt injection** attacks. Scans tool outputs (files
 
 ### Option 1: Managed Installation (Recommended)
 
-For managed deployment in team or enterprise environments.
+#### 🐧 Linux
+**Deploy method: File-based**
 
 1. Deploy hook files to `/etc/claude-code/hooks/prompt-injection-defender/`
 2. Push `/etc/claude-code/managed-settings.json` containing the hooks block (and optionally `allowManagedHooksOnly: true` to enforce it)
 3.  Users restart Claude Code — the hook is active and cannot be disabled at the project or user level
 
-This works on Linux, WSL2, macOS, and Windows. Settings can be pushed via the Anthropic admin console with `forceRemoteSettingsRefresh: true`. 
+```
+/etc/claude-code/
+├── hooks/
+│   └── prompt-injection-defender/
+│       ├── post-tool-defender.py
+│       └── patterns.yaml
+└── managed-settings.json
+```
+#### 🪟 Windows (Native)
+indows supports two deployment methods. Choose based on your endpoint management tooling.
+ 
+**Method A: File-based (Intune / SCCM / Manual)**
+ 
+1. Deploy hook files to `C:\Program Files\ClaudeCode\hooks\prompt-injection-defender\`
+2. Place `managed-settings.json` at `C:\Program Files\ClaudeCode\managed-settings.json`
+3. Users restart Claude Code — the hook is active and cannot be overridden
+```
+C:\Program Files\ClaudeCode\
+├── hooks\
+│   └── prompt-injection-defender\
+│       ├── post-tool-defender.py
+│       └── patterns.yaml
+└── managed-settings.json
+```
+**Method B: Registry-based (Group Policy / Intune)**
+ 
+Settings can alternatively be pushed via the Windows registry, which integrates natively with Group Policy Objects (GPO) or Microsoft Intune configuration profiles.
+ 
+| Field | Value |
+|---|---|
+| Key | `HKLM\SOFTWARE\Policies\ClaudeCode` |
+| Value name | `Settings` |
+| Value type | `REG_SZ` or `REG_EXPAND_SZ` |
+| Value data | Your `managed-settings.json` content as a JSON string |
+ 
+This is the preferred method in domain-joined environments where IT already manages policy via GPO or Intune, as it does not require writing files to the `Program Files` directory.
 
+#### ☁️ Server-Managed (All Platforms — No File Deployment Required)
+ 
+For organizations using the Anthropic admin console, settings including hooks can be pushed directly from Anthropic's servers at authentication time — no file or registry deployment required. This approach works across Linux, WSL, macOS, and Windows.
+ 
+1. In [Claude.ai](https://claude.ai), navigate to **Admin Settings > Claude Code > Managed settings**
+2. Add your hooks configuration JSON
+3. Save — Claude Code clients receive settings on next startup or within the hourly polling cycle
+This is ideal for organizations without MDM or for managing remote and unmanaged devices. Note that endpoint-managed settings (file or registry) take precedence if both are present.
 
 ### Option 2: Interactive Installation
 
@@ -315,7 +359,6 @@ claude-hooks/
             ├── cookbook/               # Interactive workflows
             ├── hooks/
             │   ├── defender-python/    # Python implementation
-            │   └── defender-typescript/ # TypeScript implementation
             └── test-prompts/           # Test scenarios
 ```
 
