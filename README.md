@@ -27,14 +27,6 @@ Defense against **indirect prompt injection** attacks. Scans tool outputs (files
 2. Push `/etc/claude-code/managed-settings.json` containing the hooks block (and optionally `allowManagedHooksOnly: true` to enforce it)
 3.  Users restart Claude Code — the hook is active and cannot be disabled at the project or user level
 
-```
-/etc/claude-code/
-├── hooks/
-│   └── prompt-injection-defender/
-│       ├── post-tool-defender.py
-│       └── patterns.yaml
-└── managed-settings.json
-```
 #### 🪟 Windows (Native)
 indows supports two deployment methods. Choose based on your endpoint management tooling.
  
@@ -43,14 +35,7 @@ indows supports two deployment methods. Choose based on your endpoint management
 1. Deploy hook files to `C:\Program Files\ClaudeCode\hooks\prompt-injection-defender\`
 2. Place `managed-settings.json` at `C:\Program Files\ClaudeCode\managed-settings.json`
 3. Users restart Claude Code — the hook is active and cannot be overridden
-```
-C:\Program Files\ClaudeCode\
-├── hooks\
-│   └── prompt-injection-defender\
-│       ├── post-tool-defender.py
-│       └── patterns.yaml
-└── managed-settings.json
-```
+
 **Method B: Registry-based (Group Policy / Intune)**
  
 Settings can alternatively be pushed via the Windows registry, which integrates natively with Group Policy Objects (GPO) or Microsoft Intune configuration profiles.
@@ -104,8 +89,17 @@ Managed Install:
 │   └── prompt-injection-defender/
 │       ├── post-tool-defender.py
 │       └── patterns.yaml
-└── managed-settings.json      ← hook configuration (server-pushed)
+└── managed-settings.json      ← hook configuration (endpoint or server pushed)
 ```
+```
+C:\Program Files\ClaudeCode\
+├── hooks\
+│   └── prompt-injection-defender\
+│       ├── post-tool-defender.py
+│       └── patterns.yaml
+└── managed-settings.json      ← hook configuration (endpoint or server pushed)
+```
+
 Project Install: 
 
 ```
