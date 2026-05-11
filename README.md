@@ -66,7 +66,7 @@ This is the preferred method in domain-joined environments where IT already mana
 
 #### ☁️ Server-Managed (All Platforms — No File Deployment Required)
  
-For organizations using the Anthropic admin console, settings including hooks can be pushed directly from Anthropic's servers at authentication time — no file or registry deployment required. This approach works across Linux, WSL, macOS, and Windows.
+For organizations using the Anthropic admin console, settings including hooks can be pushed directly from Anthropic's servers at authentication time — no file or registry deployment required. This approach works across Linux, macOS, and Windows.
  
 1. In [Claude.ai](https://claude.ai), navigate to **Admin Settings > Claude Code > Managed settings**
 2. Add your hooks configuration JSON
